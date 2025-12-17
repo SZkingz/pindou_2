@@ -76,16 +76,10 @@ const presetColors = [
 
 // Initialize custom color library
 function initColorLibrary() {
-    // Check if color categories are saved in local storage first
-    const savedCategories = localStorage.getItem('colorCategories');
-    if (savedCategories) {
-        colorCategories = JSON.parse(savedCategories);
-        currentCategoryId = colorCategories[0].id;
-        renderColorLibrary();
-        return;
-    }
+    // Clear localStorage to ensure we load complete data from colors.json
+    localStorage.removeItem('colorCategories');
     
-    // If no local storage data, load from colors.json file
+    // Load from colors.json file
     fetch('colors.json')
         .then(response => {
             if (!response.ok) {
